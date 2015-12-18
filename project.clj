@@ -9,13 +9,19 @@
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "1.7.170" :scope "provided"]
 
+                 [org.clojure/tools.logging "0.3.1"]
+                 [org.slf4j/slf4j-api "1.7.5"]
+                 [ch.qos.logback/logback-classic "1.0.11"]
                  [ring-server "0.4.0"]
                  [ring "1.4.0"]
                  [ring/ring-defaults "0.1.5"]
+                 [ring/ring-json "0.4.0"]
                  [prone "0.8.2"]                            ; exceptions middleware
                  [compojure "1.4.0"]
                  [hiccup "1.0.5"]
                  [environ "1.0.1"]
+                 [cheshire "5.5.0"]
+                 [clj-http "2.0.0"]
 
                  ;; ClojureScript
                  [reagent "0.5.1"
@@ -99,7 +105,10 @@
                               :css-dirs ["resources/public/css"]
                               :ring-handler exposure.handler/app}
 
-                   :env {:dev true}
+                   :env {:dev true
+                         :host "http://localhost:3449"
+                         :instagram-client-id "4b4d8befff9846ecb4491637e5674a07"
+                         :instagram-client-secret "3b1ce6fa79134675bc8efbc6c9dd7258"}
 
                    :cljsbuild {:builds {:app {:source-paths ["env/dev/cljs"]
                                               :compiler {:main "exposure.dev"
