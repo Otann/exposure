@@ -58,6 +58,7 @@
                                         :asset-path   "js/out"
                                         :optimizations :none
                                         :pretty-print  true}}}}
+
   :less {:source-paths ["src/less"]
          :target-path "resources/public/css"}
 
@@ -110,9 +111,10 @@
                          :instagram-client-id "4b4d8befff9846ecb4491637e5674a07"
                          :instagram-client-secret "3b1ce6fa79134675bc8efbc6c9dd7258"}}
 
-             :uberjar {:hooks [leiningen.less
-                               minify-assets.plugin/hooks]
-                       :prep-tasks ["compile" ["cljsbuild" "once"]]
+             :uberjar {:hooks [minify-assets.plugin/hooks]
+                       :prep-tasks [["less" "once"]
+                                    "compile"
+                                    ["cljsbuild" "once"]]
                        :env {:production true}
                        :aot :all
                        :omit-source true

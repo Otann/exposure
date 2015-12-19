@@ -41,3 +41,5 @@
   (accountant/configure-navigation!)
   (accountant/dispatch-current!)
   (mount-root))
+
+(init)

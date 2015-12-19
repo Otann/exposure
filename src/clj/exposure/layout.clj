@@ -23,7 +23,7 @@
      [:body
       mount-target
       (include-js "js/app.js")
-      [:script "exposure.core.init();"]]]))
+      #_[:script "exposure.core.init();"]]]))
 
 (def auht-page
   (html
