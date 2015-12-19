@@ -6,7 +6,7 @@
               [exposure.config :as config]))
 
 (when config/debug?
-  (println "dev mode"))
+  (println "Running app in dev mode"))
 
 ;; -------------------------
 ;; Views

@@ -110,7 +110,8 @@
                          :instagram-client-id "4b4d8befff9846ecb4491637e5674a07"
                          :instagram-client-secret "3b1ce6fa79134675bc8efbc6c9dd7258"}}
 
-             :uberjar {:hooks [minify-assets.plugin/hooks]
+             :uberjar {:hooks [leiningen.less
+                               minify-assets.plugin/hooks]
                        :prep-tasks ["compile" ["cljsbuild" "once"]]
                        :env {:production true}
                        :aot :all
@@ -119,4 +120,5 @@
                                    :builds {:app
                                             {:compiler {:main "exposure.core"
                                                         :optimizations :advanced
+                                                        :closure-defines {goog.DEBUG false}
                                                         :pretty-print false}}}}}})

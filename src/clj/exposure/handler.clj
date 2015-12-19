@@ -25,6 +25,10 @@
   (not-found "Not Found"))
 
 (def app
+  ;; #'routes expands to (var routes) so that when we reload our code,
+  ;; the server is forced to re-resolve the symbol in the var
+  ;; rather than having its own copy. When the root binding
+  ;; changes, the server picks it up without having to restart.
   (let [handler (-> #'routes
                     (wrap-json-response)
                     (wrap-defaults site-defaults))]
