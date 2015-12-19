@@ -81,7 +81,6 @@
                                   [com.cemerick/piggieback "0.2.1"]
                                   [pjstadig/humane-test-output "0.7.0"]]
 
-                   :source-paths ["env/dev/clj"]
                    :plugins [[lein-figwheel "0.5.0-2"
                               :exclusions [org.clojure/core.memoize
                                            ring/ring-core
@@ -98,30 +97,28 @@
                    :injections [(require 'pjstadig.humane-test-output)
                                 (pjstadig.humane-test-output/activate!)]
 
-                   :figwheel {:http-server-root "public"
-                              :server-port 3449
-                              :nrepl-port 7002
-                              :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"]
-                              :css-dirs ["resources/public/css"]
+                   :cljsbuild {:builds {:app {:figwheel {:on-jsload "exposure.core/mount-root"}
+                                              :compiler {:main "exposure.core"
+                                                         :source-map true
+                                                         :source-map-timestamp true}}}}
+
+                   :figwheel {:css-dirs ["resources/public/css"]
                               :ring-handler exposure.handler/app}
 
                    :env {:dev true
                          :host "http://localhost:3449"
                          :instagram-client-id "4b4d8befff9846ecb4491637e5674a07"
-                         :instagram-client-secret "3b1ce6fa79134675bc8efbc6c9dd7258"}
+                         :instagram-client-secret "3b1ce6fa79134675bc8efbc6c9dd7258"}}
 
-                   :cljsbuild {:builds {:app {:source-paths ["env/dev/cljs"]
-                                              :compiler {:main "exposure.dev"
-                                                         :source-map true}}}}}
-
-             :uberjar {:hooks [minify-assets.plugin/hooks]
+             :uberjar {:hooks [leiningen.less
+                               minify-assets.plugin/hooks]
                        :prep-tasks ["compile" ["cljsbuild" "once"]]
                        :env {:production true}
                        :aot :all
                        :omit-source true
                        :cljsbuild {:jar true
                                    :builds {:app
-                                            {:source-paths ["env/prod/cljs"]
-                                             :compiler
-                                             {:optimizations :advanced
-                                              :pretty-print false}}}}}})
+                                            {:compiler {:main "exposure.core"
+                                                        :optimizations :advanced
+                                                        :closure-defines {goog.DEBUG false}
+                                                        :pretty-print false}}}}}})

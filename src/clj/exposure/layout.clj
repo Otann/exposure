@@ -8,10 +8,7 @@
 (def mount-target
   [:div#app
    [:h3 "ClojureScript has not been compiled!"]
-   [:p
-    "please run "
-    [:b "lein figwheel"]
-    "in order to start the compiler"]])
+   [:p "please run " [:b "lein figwheel"] " in order to start the compiler"]])
 
 (def loading-page
   (html
@@ -25,7 +22,8 @@
                      "css/site.min.css"))]
      [:body
       mount-target
-      (include-js "js/app.js")]]))
+      (include-js "js/app.js")
+      [:script "exposure.core.init();"]]]))
 
 (def auht-page
   (html
