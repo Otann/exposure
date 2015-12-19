@@ -2,7 +2,11 @@
     (:require [reagent.core :as reagent :refer [atom]]
               [reagent.session :as session]
               [secretary.core :as secretary :include-macros true]
-              [accountant.core :as accountant]))
+              [accountant.core :as accountant]
+              [exposure.config :as config]))
+
+(when config/debug?
+  (println "dev mode"))
 
 ;; -------------------------
 ;; Views
@@ -33,7 +37,7 @@
 (defn mount-root []
   (reagent/render [current-page] (.getElementById js/document "app")))
 
-(defn init! []
+(defn init []
   (accountant/configure-navigation!)
   (accountant/dispatch-current!)
   (mount-root))
