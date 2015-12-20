@@ -1,34 +1,41 @@
-body {
-  font-family: 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
-  max-width: 600px;
-  margin: 0 auto;
-  padding-top: 72px;
-  -webkit-font-smoothing: antialiased;
-  font-size: 1.125em;
-  color: #333;
-  line-height: 1.5em;
+.masthead {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  background-color: #6e5494;
 }
 
-h1, h2, h3 {
-  color: #000;
-}
-h1 {
-  font-size: 2.5em
-}
-
-h2 {
-  font-size: 2em
+.masthead .masthead-logo {
+  float: left;
+  display: inline-block;
+  font-size: 1.5rem;
+  color: #fff;
 }
 
-h3 {
-  font-size: 1.5em
-}
-
-a {
+.masthead a.masthead-logo:hover{
   text-decoration: none;
-  color: #09f;
 }
 
-a:hover {
-  text-decoration: underline;
+.masthead .masthead-logo .mega-octicon {
+  float: left;
+  margin-right: .5rem;
+}
+
+.masthead-nav {
+  float: right;
+  margin-top: .5rem;
+  font-size: 1rem;
+}
+
+.masthead-nav a:not(:last-child) {
+  margin-right: 1.25rem;
+}
+
+.masthead-nav a {
+  display: inline-block;
+}
+
+.masthead a {
+  color: rgba(255,255,255,0.5);
 }

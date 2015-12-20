@@ -8,29 +8,26 @@
 
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "1.7.170" :scope "provided"]
+                 [com.taoensso/timbre "4.1.4"]              ; Clojure/Script logging
 
-                 [org.clojure/tools.logging "0.3.1"]
-                 [org.slf4j/slf4j-api "1.7.5"]
-                 [ch.qos.logback/logback-classic "1.0.11"]
-                 [ring-server "0.4.0"]
                  [ring "1.4.0"]
+                 [ring-server "0.4.0"]
                  [ring/ring-defaults "0.1.5"]
                  [ring/ring-json "0.4.0"]
-                 [prone "0.8.2"]                            ; exceptions middleware
-                 [compojure "1.4.0"]
-                 [hiccup "1.0.5"]
-                 [environ "1.0.1"]
-                 [cheshire "5.5.0"]
-                 [clj-http "2.0.0"]
 
-                 ;; ClojureScript
-                 [reagent "0.5.1"
-                  :exclusions [org.clojure/tools.reader]]
-                 [reagent-forms "0.5.13"]
-                 [reagent-utils "0.1.5"]
-                 [secretary "1.2.3"]
-                 [venantius/accountant "0.1.5"
-                  :exclusions [org.clojure/tools.reader]]]
+                 [compojure "1.4.0"]                        ; backend routes
+                 [prone "0.8.2"]                            ; exceptions middleware
+                 [hiccup "1.0.5"]                           ; html generation
+                 [environ "1.0.1"]                          ; config from env
+                 [cheshire "5.5.0"]                         ; json parsing/generation
+                 [clj-http "2.0.0"]                         ; http client for backend
+
+                 ;; Frontend
+                 [reagent "0.5.1"]                          ; React rendering wrapper
+                 [re-frame "0.6.0"]                         ; data-flow library
+                 [secretary "1.2.3"]                        ; frontend routing
+                 [venantius/accountant "0.1.5"]             ; HTML5 history
+                 ]
 
   :plugins [[lein-environ "1.0.1"]
             [lein-cljsbuild "1.1.1"]
@@ -66,32 +63,13 @@
 
                    :dependencies [[ring/ring-mock "0.3.0"]
                                   [ring/ring-devel "1.4.0"]
-                                  [lein-figwheel "0.5.0-2"
-                                   :exclusions [org.clojure/core.memoize
-                                                ring/ring-core
-                                                org.clojure/clojure
-                                                org.ow2.asm/asm-all
-                                                org.clojure/data.priority-map
-                                                org.clojure/tools.reader
-                                                org.clojure/clojurescript
-                                                org.clojure/core.async
-                                                org.clojure/tools.analyzer.jvm]]
-                                  [org.clojure/clojurescript "1.7.170"
-                                   :exclusions [org.clojure/clojure org.clojure/tools.reader]]
+                                  [lein-figwheel "0.5.0-2"]
+                                  [org.clojure/clojurescript "1.7.170"]
                                   [org.clojure/tools.nrepl "0.2.12"]
                                   [com.cemerick/piggieback "0.2.1"]
                                   [pjstadig/humane-test-output "0.7.0"]]
 
-                   :plugins [[lein-figwheel "0.5.0-2"
-                              :exclusions [org.clojure/core.memoize
-                                           ring/ring-core
-                                           org.clojure/clojure
-                                           org.ow2.asm/asm-all
-                                           org.clojure/data.priority-map
-                                           org.clojure/tools.reader
-                                           org.clojure/clojurescript
-                                           org.clojure/core.async
-                                           org.clojure/tools.analyzer.jvm]]
+                   :plugins [[lein-figwheel "0.5.0-2"]
                              [org.clojure/clojurescript "1.7.170"]
                              [lein-less "1.7.5"]]
 

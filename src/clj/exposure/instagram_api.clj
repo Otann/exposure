@@ -1,5 +1,5 @@
 (ns exposure.instagram-api
-  (:require [clojure.tools.logging :as log]
+  (:require [taoensso.timbre :as log]
             [environ.core :refer [env]]
             [clj-http.client :as http]))
 

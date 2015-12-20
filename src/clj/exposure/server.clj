@@ -1,5 +1,5 @@
 (ns exposure.server
-  (:require [clojure.tools.logging :as log]
+  (:require [taoensso.timbre :as log]
             [exposure.handler :refer [app]]
             [ring.adapter.jetty :refer [run-jetty]]
             [environ.core :refer [env]])
