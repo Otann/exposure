@@ -23,9 +23,9 @@
     (let [reason      (:error-reason)
           description (:error-description)]
       (log/error "Authorization error" reason ":" description)
-      {:status 502
-       :body {:reason reason
-              :description description}})
+
+      ;TODO: throw exception here, handle in some middleware
+      nil)
 
     (let [code (:code params)
           params {:client_id (env :instagram-client-id)
@@ -37,3 +37,13 @@
                                              :form-params params})]
       (log/debug "Instagram response for token" body)
       body)))
+
+(defn search
+  "Wrapper for instagram API that handles search by tag name"
+  [token tag]
+  (let [search-url (str "https://api.instagram.com/v1/tags/" tag "/media/recent")
+        params     {"access_token" token}
+        response   (http/get search-url {:as :json
+                                         :query-params params})]
+    {:status 200
+     :body (:body response)}))

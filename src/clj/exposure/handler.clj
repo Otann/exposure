@@ -21,10 +21,14 @@
   (context "/api" []
     (GET "/ping" [] {:status 200 :body "pong"})
     (GET "/auth" [] (redirect (instagram/auth-url)))
-    (GET "/redirected" req (layout/persist-and-redirect
-                             {:url "/"
-                              :key constants/localstorage-profile-key
-                              :data (instagram/redirect-data req)})))
+    (GET "/redirected" req (if-let [data (instagram/redirect-data req)]
+                             (layout/persist-and-redirect
+                               {:url "/"
+                                :key constants/localstorage-profile-key
+                                :data data})
+                             {:status 500
+                              :body "Authorization error"}))
+    (GET "/search" [token tag] (instagram/search token tag)))
 
   ; catch-all handler to allow client-side routing
   (GET "/*" [] layout/reagent-page))

@@ -9,17 +9,17 @@
 (defn home-page []
   (let [profile (re-frame/subscribe [:profile])]
     (fn []
-      (if @profile
-        [:div
-         [:h1 "Welcome " (-> @profile :user :username)]
-         [:p "Your current access token:"]
-         [:pre (-> @profile :access_token)]]
-
+      (if-not @profile
         [:div {:class "blankslate clean-background"}
          [:h1 "Welcome to Exposure"]
          [:p "This is web application for browsing Instagram data by hashtags"]
          [:a {:class "btn btn-primary"
-              :href "/api/auth"} "Sign In with Instagram"]]))))
+              :href "/api/auth"} "Sign In with Instagram"]]
+
+        [:div
+         [:h1 "Welcome " (-> @profile :user :username)]
+         [:p "Your current access token:"]
+         [:pre (-> @profile :access_token)]]))))
 
 (defn header []
   (let [profile (re-frame/subscribe [:profile])]
