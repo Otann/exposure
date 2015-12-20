@@ -40,7 +40,7 @@
        [:header {:class "masthead"}
         [:div {:class "container"}
          [:a {:class "masthead-logo"}
-          [:span {:class "mega-octicon octicon-gist-secret"}]
-          "Investigrator"]]]
+          [:span {:class "mega-octicon octicon-broadcast"}]
+          "Exposure"]]]
        [:div {:class "container"}
         (pages @active-page)]])))
