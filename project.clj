@@ -25,8 +25,8 @@
                  ;; Frontend
                  [reagent "0.5.1"]                          ; React rendering wrapper
                  [re-frame "0.6.0"]                         ; data-flow library
-                 [secretary "1.2.3"]                        ; frontend routing
-                 [venantius/accountant "0.1.5"]             ; HTML5 history
+                 [bidi "1.20.3"]                            ; frontend routing
+                 [kibu/pushy "0.3.2"]                       ; HTML5 history
                  ]
 
   :plugins [[lein-environ "1.0.1"]

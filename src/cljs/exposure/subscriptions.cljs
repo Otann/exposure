@@ -16,3 +16,8 @@
   :active-page
   (fn [db _]
     (reaction (:active-page @db))))
+
+(re-frame/register-sub
+  :profile
+  (fn [db _]
+    (reaction (:profile @db))))

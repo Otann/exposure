@@ -3,25 +3,31 @@
             [compojure.core :refer [GET defroutes context]]
             [compojure.route :refer [not-found resources]]
 
+            [ring.util.response :refer [redirect]]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
-            [prone.middleware :refer [wrap-exceptions]]
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.middleware.json :refer [wrap-json-response]]
+            [prone.middleware :refer [wrap-exceptions]]
 
+            [exposure.constants :as constants]
             [exposure.layout :as layout]
             [exposure.instagram-api :as instagram]))
 
 
 (defroutes routes
-  (GET "/"      [] layout/loading-page)
+  (GET "/"      [] layout/reagent-page)
   (GET "/auth"  [] layout/auth-page)
 
   (context "/api" []
     (GET "/ping" [] {:status 200 :body "pong"})
-    (GET "/redirected" req (instagram/handle-redirect req)))
+    (GET "/auth" [] (redirect (instagram/auth-url)))
+    (GET "/redirected" req (layout/persist-and-redirect
+                             {:url "/"
+                              :key constants/localstorage-profile-key
+                              :data (instagram/redirect-data req)})))
 
   ; catch-all handler to allow client-side routing
-  (GET "/*" [] layout/loading-page))
+  (GET "/*" [] layout/reagent-page))
 
 (def app
   ;; #'routes expands to (var routes) so that when we reload our code,

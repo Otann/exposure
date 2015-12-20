@@ -6,6 +6,7 @@
 (re-frame/register-handler
   :initialize-db
   (fn [_ _]
+    (log/debug "Initializaing database")
     db/default-db))
 
 (re-frame/register-handler
@@ -15,6 +16,6 @@
     (assoc db :active-page active-page)))
 
 (re-frame/register-handler
-  :btn-clicked
+  :sign-out
   (fn [db _]
-    (update-in db [:clicked] inc)))
+    (db/sign-out db)))

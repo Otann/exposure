@@ -14,8 +14,9 @@
        (redirect-url)
        "&response_type=code"))
 
-(defn handle-redirect
-  "Handles response from Instaram"
+(defn redirect-data
+  "Handles response from Instaram redirect and
+   returns authentication response with access_token"
   [{params :params}]
   (if (:error params)
     (let [reason      (:error-reason)
@@ -34,5 +35,4 @@
           {body :body} (http/post oauth-url {:as :json
                                              :form-params params})]
       (log/debug "Instagram response for token" body)
-      {:status 200
-       :body body})))
+      body)))
