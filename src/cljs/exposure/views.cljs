@@ -11,7 +11,9 @@
     (fn []
       (if @profile
         [:div
-         [:h1 "Welcome " (-> @profile :user :username)]]
+         [:h1 "Welcome " (-> @profile :user :username)]
+         [:p "Your current access token:"]
+         [:pre (-> @profile :access_token)]]
 
         [:div {:class "blankslate clean-background"}
          [:h1 "Welcome to Exposure"]

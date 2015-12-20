@@ -12,7 +12,8 @@
        (env :instagram-client-id)
        "&redirect_uri="
        (redirect-url)
-       "&response_type=code"))
+       "&response_type=code"
+       "&scope=public_content"))
 
 (defn redirect-data
   "Handles response from Instaram redirect and
