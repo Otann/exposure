@@ -70,6 +70,7 @@
                                   [pjstadig/humane-test-output "0.7.0"]]
 
                    :plugins [[lein-figwheel "0.5.0-2"]
+                             [lein-ring "0.9.7"]
                              [org.clojure/clojurescript "1.7.170"]
                              [lein-less "1.7.5"]]
 

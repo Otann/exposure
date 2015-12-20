@@ -14,15 +14,14 @@
 
 (defroutes routes
   (GET "/"      [] layout/loading-page)
-  (GET "/about" [] layout/loading-page)
-  (GET "/auth"  [] layout/auht-page)
+  (GET "/auth"  [] layout/auth-page)
 
   (context "/api" []
     (GET "/ping" [] {:status 200 :body "pong"})
     (GET "/redirected" req (instagram/handle-redirect req)))
 
-  (resources "/")
-  (not-found "Not Found"))
+  ; catch-all handler to allow client-side routing
+  (GET "/*" [] layout/loading-page))
 
 (def app
   ;; #'routes expands to (var routes) so that when we reload our code,

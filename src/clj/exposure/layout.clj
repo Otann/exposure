@@ -19,24 +19,19 @@
               :content "width=device-width, initial-scale=1"}]
       (include-css "//cdn.jsdelivr.net/primer/2.5.0/primer.css")
       (include-css "//cdn.jsdelivr.net/octicons/3.3.0/octicons.css")
-      (include-css (if (env :dev)
-                     "css/site.css"
-                     "css/site.min.css"))]
+      (include-css (if (env :dev) "css/site.css" "css/site.min.css"))]
      [:body
       mount-target
-      (include-js "js/app.js")
-      #_[:script "exposure.core.init();"]]]))
+      (include-js "js/app.js")]]))
 
-(def auht-page
+(def auth-page
   (html
     [:html
      [:head
       [:meta {:charset "utf-8"}]
       [:meta {:name "viewport"
               :content "width=device-width, initial-scale=1"}]
-      (include-css (if (env :dev)
-                     "css/site.css"
-                     "css/site.min.css"))]
+      (include-css (if (env :dev) "css/site.css" "css/site.min.css"))]
      [:body
       [:div#app
        [:h3 "Please authorize with your Instagram account"]
