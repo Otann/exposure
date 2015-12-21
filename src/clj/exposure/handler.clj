@@ -16,7 +16,6 @@
 
 (defroutes routes
   (GET "/"      [] layout/reagent-page)
-  (GET "/auth"  [] layout/auth-page)
 
   (context "/api" []
     (GET "/ping" [] {:status 200 :body "pong"})

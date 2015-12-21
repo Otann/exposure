@@ -8,10 +8,9 @@
 (defn redirect-url [] (str (env :host) "/api/redirected"))
 
 (defn auth-url []
-  (str "https://api.instagram.com/oauth/authorize/?client_id="
-       (env :instagram-client-id)
-       "&redirect_uri="
-       (redirect-url)
+  (str "https://api.instagram.com/oauth/authorize/"
+       "?client_id=" (env :instagram-client-id)
+       "&redirect_uri=" (redirect-url)
        "&response_type=code"
        "&scope=public_content"))
 
@@ -23,7 +22,6 @@
     (let [reason      (:error-reason)
           description (:error-description)]
       (log/error "Authorization error" reason ":" description)
-
       ;TODO: throw exception here, handle in some middleware
       nil)
 
@@ -33,8 +31,9 @@
                   :grant_type "authorization_code"
                   :redirect_uri (redirect-url)
                   :code code}
-          {body :body} (http/post oauth-url {:as :json
-                                             :form-params params})]
+          {body :body} (http/post oauth-url
+                                  {:as :json
+                                   :form-params params})]
       (log/debug "Instagram response for token" body)
       body)))
 
@@ -43,7 +42,8 @@
   [token tag]
   (let [search-url (str "https://api.instagram.com/v1/tags/" tag "/media/recent")
         params     {"access_token" token}
-        response   (http/get search-url {:as :json
-                                         :query-params params})]
+        response   (http/get search-url
+                             {:as :json
+                              :query-params params})]
     {:status 200
      :body (:body response)}))

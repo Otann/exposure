@@ -1,4 +1,5 @@
 (ns exposure.views
+  (:require-macros [reagent.ratom :refer [reaction]])
   (:require [re-frame.core :as re-frame]
             [taoensso.timbre :as log]
             [exposure.routes :refer [url-for]]))
@@ -7,36 +8,37 @@
 ;; home
 
 (defn home-page []
-  (let [profile (re-frame/subscribe [:profile])]
+  (let [profile  (re-frame/subscribe [:profile])
+        username (reaction (-> @profile :user :username))
+        token    (reaction (-> @profile :access_token))]
     (fn []
       (if-not @profile
-        [:div {:class "blankslate clean-background"}
+        [:div.blankslate.clean-background
          [:h1 "Welcome to Exposure"]
          [:p "This is web application for browsing Instagram data by hashtags"]
-         [:a {:class "btn btn-primary"
-              :href "/api/auth"} "Sign In with Instagram"]]
+         [:a.btn.btn-primary {:href "/api/auth"} "Sign In with Instagram"]]
 
         [:div
-         [:h1 "Welcome " (-> @profile :user :username)]
+         [:h1 "Welcome " @username]
          [:p "Your current access token:"]
-         [:pre (-> @profile :access_token)]]))))
+         [:pre @token]]))))
 
 (defn header []
-  (let [profile (re-frame/subscribe [:profile])]
+  (let [profile (re-frame/subscribe [:profile])
+        picture (reaction (-> @profile :user :profile_picture))]
     (fn []
-      [:header {:class "masthead"}
-       [:div {:class "container"}
-        [:a {:class "masthead-logo" :href (url-for :home)}
-         [:span {:class "mega-octicon octicon-broadcast"}]
+      [:header.masthead
+       [:div.container
+        [:a.masthead-logo {:href (url-for :home)}
+         [:span.mega-octicon.octicon-broadcast]
          "Exposure"]
-        [:nav {:class "masthead-nav"}
+        [:nav.masthead-nav
          [:a {:href (url-for :about)} "About"]
          (when @profile
            [:a {:href (url-for :home)
                 :on-click #(re-frame/dispatch [:sign-out])}
             "Sign out"
-            [:img {:class "avatar avatar-small"
-                   :src (-> @profile :user :profile_picture)}]])]]])))
+            [:img.avatar.avatar-small {:src @picture}]])]]])))
 
 ;; main
 
@@ -50,5 +52,5 @@
     (fn []
       [:div
        [header]
-       [:div {:class "container"}
+       [:div.container
         (pages @active-page)]])))
