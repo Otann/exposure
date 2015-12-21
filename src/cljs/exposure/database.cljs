@@ -12,7 +12,7 @@
     result))
 
 (defn sign-out
-  "Removes current authorization"
+  "Removes current authorization and returns new DB instance"
   [db]
   (storage/remove-item! constants/localstorage-profile-key)
   (dissoc db :profile))
@@ -21,3 +21,10 @@
   {:name "re-frame"
    :active-page :home-page
    :profile (init-user)})
+
+(def db-sample
+  {:active-page :home-page
+   :profile {:access_token "abacaba"
+             :user {:username "otann"
+                    :profile_picture "http://"}}
+   :pages {:home-page {:search-form {:value ""}}}})
