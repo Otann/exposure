@@ -7,16 +7,15 @@
 
 (log/debug "Registering routes")
 
-(def routes ["/" {""      :home
-                  "about" :about}])
+(def routes ["/" {""      :home-page
+                  "about" :about-page}])
 
 (defn- parse-url [url]
   (bidi/match-route routes url))
 
 (defn- dispatch-route [matched-route]
-  (let [{handler :handler} matched-route
-        page-name (keyword (str (name handler) "-page"))]
-    (dispatch [:set-active-page page-name])))
+  (let [{handler :handler} matched-route]
+    (dispatch [:set-active-page handler])))
 
 (defn init-routes []
   (log/debug "Initializing routes")
