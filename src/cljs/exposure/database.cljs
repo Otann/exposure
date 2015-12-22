@@ -1,14 +1,14 @@
 (ns exposure.database
-  (:require [exposure.utils.localstorage :as storage]
+  (:require [taoensso.timbre :as log]
+            [exposure.utils.localstorage :as storage]
             [exposure.constants :as constants]
-            [taoensso.timbre :as log]))
+            [exposure.utils.helpers :refer [read-json]]))
 
 (defn init-user
   "Loads instagram user from localStorage if present"
   []
   (let [string (storage/get-item constants/localstorage-profile-key)
-        json   (.parse js/JSON string)
-        result (js->clj json :keywordize-keys true)]
+        result (read-json string)]
     result))
 
 (defn sign-out
@@ -20,11 +20,8 @@
 (def default-db
   {:name "re-frame"
    :active-page :home-page
-   :profile (init-user)})
+   :profile (init-user)
+   :search-pending false
+   :search-query ""
+   :posts []})
 
-(def db-sample
-  {:active-page :home-page
-   :profile {:access_token "abacaba"
-             :user {:username "otann"
-                    :profile_picture "http://"}}
-   :pages {:home-page {:search-form {:value ""}}}})

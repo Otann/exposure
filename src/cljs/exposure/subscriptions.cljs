@@ -10,3 +10,6 @@
 
 (re-frame/register-sub :is-authorized
   (fn [db _] (reaction (boolean (:profile @db)))))
+
+(re-frame/register-sub :posts
+  (fn [db _] (reaction (:posts @db))))

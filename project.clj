@@ -27,7 +27,7 @@
                  [re-frame "0.6.0"]                         ; data-flow library
                  [bidi "1.20.3"]                            ; frontend routing
                  [kibu/pushy "0.3.2"]                       ; HTML5 history
-                 [cljs-ajax "0.5.2"]                        ; http library
+                 [cljs-http "0.1.39"]                       ; http library
                  ]
 
   :plugins [[lein-environ "1.0.1"]

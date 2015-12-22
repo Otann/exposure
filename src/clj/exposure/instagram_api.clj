@@ -19,18 +19,18 @@
    returns authentication response with access_token"
   [{params :params}]
   (if (:error params)
-    (let [reason      (:error-reason)
-          description (:error-description)]
+    (let [reason      (:error-reason params)
+          description (:error-description params)]
       (log/error "Authorization error" reason ":" description)
       ;TODO: throw exception here, handle in some middleware
       nil)
 
     (let [code (:code params)
-          params {:client_id (env :instagram-client-id)
+          params {:client_id     (env :instagram-client-id)
                   :client_secret (env :instagram-client-secret)
-                  :grant_type "authorization_code"
-                  :redirect_uri (redirect-url)
-                  :code code}
+                  :grant_type    "authorization_code"
+                  :redirect_uri  (redirect-url)
+                  :code          code}
           {body :body} (http/post oauth-url
                                   {:as :json
                                    :form-params params})]

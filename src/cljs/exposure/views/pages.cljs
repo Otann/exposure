@@ -15,12 +15,14 @@
 (defn app-page []
   (let [profile  (subscribe [:profile])
         username (reaction (-> @profile :user :username))
-        token    (reaction (-> @profile :access_token))]
+        token    (reaction (-> @profile :access_token))
+        posts    (subscribe [:posts])]
     (fn []
       [:div
        [:h1 "Welcome " @username]
        [:p "Your current access token: " [:code @token]]
-       [c/search-form]])))
+       [c/search-form @token]
+       [c/posts @posts]])))
 
 (defn home-page []
   (let [authorized (subscribe [:is-authorized])]
@@ -40,6 +42,7 @@
         active-page (subscribe [:active-page])]
     (fn []
       [:nav.navbar.navbar-default.navbar-fixed-top          ;.navbar-inverse
+
        [:div.container
         [:div.navbar-header
          [:a.navbar-brand {:href (url-for :home-page)}
