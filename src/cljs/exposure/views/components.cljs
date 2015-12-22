@@ -1,7 +1,8 @@
 (ns exposure.views.components
   (:require [reagent.ratom :as r :refer-macros [reaction]]
             [re-frame.core :refer [dispatch]]
-            [exposure.routes :refer [url-for]]))
+            [exposure.routes :refer [url-for]]
+            [taoensso.timbre :as log :include-macros true]))
 
 
 (defn submit-search
@@ -15,30 +16,30 @@
 (defn search-form []
   (let [data (r/atom "")]
     (fn [token]
-      [:div.row
-       [:form.form-inline
-        {:on-submit #(submit-search % @data token)}
-        [:div.form-group
-         [:label {:for "searchBox"} "Tag name"] " "
-         [:input {:id "searchBox" :type "text"
-                  :class "form-control"
-                  :placeholder "getexposure"
-                  :value @data
-                  :on-change #(reset! data (-> % .-target .-value))}]] " "
-        [:button.btn.btn-default {:type "submit"} "Search"]]])))
+      [:div.ui.action.input
+       [:input {:type "text"
+                :placeholder "getexposure"
+                :value @data
+                :on-change #(reset! data (-> % .-target .-value))}]
+       [:button.ui.button {:on-click #(dispatch [:search-init @data token])}
+        "Search"]])))
 
 (defn post [data]
   (let [img (-> data :images :thumbnail)]
     ^{:key (:id data)}
-    [:div.col-xs-6.col-md-3
-     [:a.thumbnail
+    [:div.card
+     {:style {:width (:width img)}}
+     [:div.image
       [:img {:src (:url img)
              :style {:width (:width img)
-                     :height (:height img)}}]
-      [:div.caption
-       [:p (-> data :caption :text)]]]]))
+                     :height (:height img)}}]]
+     [:div.content
+      [:div.description
+       (str (-> data :caption :text))]]]))
 
 (defn posts [data]
-  [:div.row (map post data)])
+  [:div.row
+   [:div.ui.link.cards
+    (map post data)]])
 
 

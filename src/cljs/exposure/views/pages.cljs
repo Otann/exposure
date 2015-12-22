@@ -7,10 +7,16 @@
             [exposure.views.components :as c]))
 
 (defn welcome-page []
-  [:div.jumbotron
-   [:h1 "Welcome to Exposure"]
-   [:p "This is web application for browsing Instagram data by hashtags"]
-   [:a.btn.btn-primary {:href "/api/auth"} "Sign In with Instagram"]])
+  [:div.ui.vertical.masthead.center.aligned.segment
+   {:style {:min-height "500px"}}
+   [:div.ui.test.container
+    [:h1.header {:style {:margin-top "3em"
+                                  :font-size "4em"}}
+     "Welcome to Exposure"]
+    [:h3 "Web application to browse Instagram data by hashtags"]
+    [:a.ui.huge.primary.button {:href "/api/auth"}
+     "Start browsing"
+     [:i.icon.right.arrow]]]])
 
 (defn app-page []
   (let [profile  (subscribe [:profile])
@@ -18,11 +24,11 @@
         token    (reaction (-> @profile :access_token))
         posts    (subscribe [:posts])]
     (fn []
-      [:div
-       [:h1 "Welcome " @username]
-       [:p "Your current access token: " [:code @token]]
-       [c/search-form @token]
-       [c/posts @posts]])))
+      [:div.ui.grid.container
+       [:div.row [:h1 "Welcome, dear " @username]]
+       [:div.row [:p "Your current access token: " [:code @token]]]
+       [:div.row [c/search-form @token]]
+       [:div.row [c/posts @posts]]])))
 
 (defn home-page []
   (let [authorized (subscribe [:is-authorized])]
@@ -31,32 +37,24 @@
         [app-page]
         [welcome-page]))))
 
-(defn page-nav
-  "Component that displays link to the page in navbar"
-  [active-page page-id name]
-  [:li (when (= active-page page-id) {:class "active"})
-   [:a {:href (url-for page-id)} name]])
-
 (defn navbar []
-  (let [profile (subscribe [:profile])
-        active-page (subscribe [:active-page])]
+  (let [profile (subscribe [:profile])]
     (fn []
-      [:nav.navbar.navbar-default.navbar-fixed-top          ;.navbar-inverse
+      [:div.ui.attached.stackable.menu
+       [:div.ui.container
+        [:a.item {:href (url-for :home-page)}
+         [:i.octicon.octicon-broadcast {:style {:margin-right 5}}]
+         "Exposure"]
 
-       [:div.container
-        [:div.navbar-header
-         [:a.navbar-brand {:href (url-for :home-page)}
-          [:span.mega-octicon.octicon-broadcast]
-          " Exposure"]]
-        [:div.collapse.navbar-collapse
-         [:ul.nav.navbar-nav]
+        [:div.right.menu
+         [:a.ui.item {:href (url-for :about-page)}
+          "About"]
 
-         [:ul.nav.navbar-nav.navbar-right
-          [page-nav @active-page :about-page "About"]
-          (when @profile
-            [:li [:a {:href (url-for :home)
-                      :on-click #(dispatch [:sign-out])}
-                  "Sign out"]])]]]])))
+         (if @profile
+           [:a.ui.item {:href (url-for :home) :on-click #(dispatch [:sign-out])}
+            "Sign Out"]
+           [:a.ui.item {:href "/api/auth"}
+            "Sign In"])]]])))
 
 (defmulti page-for identity)
 (defmethod page-for :home-page  [] [home-page])
