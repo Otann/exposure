@@ -1,14 +1,12 @@
 (ns exposure.views
   (:require-macros [reagent.ratom :refer [reaction]])
-  (:require [re-frame.core :as re-frame]
-            [taoensso.timbre :as log]
+  (:require [re-frame.core :refer [subscribe dispatch]]
             [exposure.routes :refer [url-for]]
-            [exposure.views.pages :as pages]))
+
+            [exposure.views.navbar :refer [navbar]]
+            [exposure.views.pages :refer [active-page]]))
 
 (defn root-component []
-  (let [active-page (re-frame/subscribe [:active-page])]
-    (fn []
-      [:div
-       [pages/navbar]
-       [:div.container
-        (pages/page-for @active-page)]])))
+  [:div
+   [navbar]
+   [active-page]])

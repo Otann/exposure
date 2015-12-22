@@ -7,8 +7,9 @@
 
 (log/debug "Registering routes")
 
-(def routes ["/" {""      :home-page
-                  "about" :about-page}])
+(def routes ["/" {""        :home-page
+                  "about"   :about-page
+                  "profile" :profile-page}])
 
 (defn- parse-url [url]
   (bidi/match-route routes url))

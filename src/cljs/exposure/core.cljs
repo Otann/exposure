@@ -1,4 +1,4 @@
-(ns exposure.core
+(ns ^:figwheel-no-load exposure.core
     (:require [reagent.core :as reagent]
               [re-frame.core :as re-frame]
               [taoensso.timbre :as log :include-macros true]

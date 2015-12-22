@@ -17,6 +17,9 @@
 (register-handler :sign-out
   (fn [db _] (db/sign-out db)))
 
+(register-handler :search-input
+  (fn [db [_ value]] (assoc db :search-input value)))
+
 (register-handler :search-init
   (fn [db [_ data token]]
     ; initiate async handler, return updated db after
