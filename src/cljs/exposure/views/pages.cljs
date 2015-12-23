@@ -1,10 +1,10 @@
 (ns exposure.views.pages
   (:require [re-frame.core :refer [subscribe dispatch]]
             [reagent.ratom :refer-macros [reaction]]
-            [taoensso.timbre :as log]
 
             [exposure.routes :refer [url-for]]
-            [exposure.views.components :as c]))
+            [exposure.views.components :as c]
+            [exposure.views.google-maps :as google-maps]))
 
 (defn welcome []
   [:div.ui.vertical.masthead.center.aligned.segment
@@ -25,7 +25,13 @@
     (fn []
       [:div.ui.grid.container
        [:div.row [c/search-form @token]]
-       [:div.row [c/posts @posts]]])))
+       [:div.ten.wide.column
+        [google-maps/gmap {:id :test
+                           :style {:height 300}
+                                    :center {:lat -34.397
+                                             :lng 150.644}}]]
+       [:div.six.wide.column
+        [c/posts @posts]]])))
 
 (defn home []
   (let [authorized (subscribe [:is-authorized])]

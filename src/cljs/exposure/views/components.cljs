@@ -16,8 +16,8 @@
         "Search"]])))
 
 (defn post [data]
-  (let [img (-> data :images :low_resolution)
-        size "8em"]
+  (let [img (-> data :images :thumbnail)
+        size "6em"]
     ^{:key (:id data)}
     [:div.six.doubling.card
      {:style {:width size}}

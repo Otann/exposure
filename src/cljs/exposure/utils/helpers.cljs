@@ -1,4 +1,6 @@
-(ns exposure.utils.helpers)
+(ns exposure.utils.helpers
+  (:require [clojure.string :as string]
+            [goog.dom :as dom]))
 
 (defn read-json
   "Parses json string as clojure object"

@@ -51,6 +51,7 @@
                    {"resources/public/css/site.min.css" "resources/public/css/site.css"}}
 
   :cljsbuild {:builds {:app {:source-paths ["src/cljs" "src/cljc"]
+                             :externs ["src/js/externs.js"]
                              :compiler {:output-to "target/cljsbuild/public/js/app.js"
                                         :output-dir "target/cljsbuild/public/js/out"
                                         :asset-path   "js/out"
@@ -89,7 +90,8 @@
                    :env {:dev true
                          :host "http://localhost:3449"
                          :instagram-client-id "4b4d8befff9846ecb4491637e5674a07"
-                         :instagram-client-secret "3b1ce6fa79134675bc8efbc6c9dd7258"}}
+                         :instagram-client-secret "3b1ce6fa79134675bc8efbc6c9dd7258"
+                         :google-maps-key "AIzaSyDTy9FH8KmR282jXI3Nn-nOX3jzuDXZ8KQ"}}
 
              :uberjar {:hooks [minify-assets.plugin/hooks]
                        :prep-tasks [["less" "once"]
