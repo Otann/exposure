@@ -4,7 +4,8 @@
 
             [exposure.routes :refer [url-for]]
             [exposure.views.components :as c]
-            [exposure.views.google-maps :as google-maps]))
+            [exposure.views.google-maps :as google-maps]
+            [exposure.views.mapbox :as mapbox]))
 
 (defn welcome []
   [:div.ui.vertical.masthead.center.aligned.segment
@@ -20,18 +21,17 @@
 
 (defn app []
   (let [profile  (subscribe [:profile])
-        token    (reaction (-> @profile :access_token))
-        posts    (subscribe [:posts])]
+        token    (reaction (-> @profile :access_token))]
     (fn []
       [:div.ui.grid.container
-       [:div.row [c/search-form @token]]
-       [:div.ten.wide.column
-        [google-maps/gmap {:id :test
-                           :style {:height 300}
-                                    :center {:lat -34.397
-                                             :lng 150.644}}]]
-       [:div.six.wide.column
-        [c/posts @posts]]])))
+       [:div.row
+        [:div.column.ten.wide
+         [c/search-form @token]]]
+       [:div.row
+        [:div.ten.wide.column
+         [c/posts-map]]
+        [:div.six.wide.column
+         [c/posts-images]]]])))
 
 (defn home []
   (let [authorized (subscribe [:is-authorized])]

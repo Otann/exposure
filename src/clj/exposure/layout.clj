@@ -12,14 +12,12 @@
       [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
       [:title (when (env :dev) "DEV - ") "Exposure App"]
 
-      #_(include-css "//cdn.jsdelivr.net/primer/2.5.0/primer.css")
       (include-css "//cdn.jsdelivr.net/octicons/3.3.0/octicons.css")
       (include-css "//oss.maxcdn.com/semantic-ui/2.1.7/semantic.min.css")
       (include-css (if (env :dev) "css/site.css" "css/site.min.css"))
 
-      ;; TODO: update & use (env)
-      #_(include-js (str "https://maps.googleapis.com/maps/api/js?key=AIzaSyBNwPtBu2O-Ze3-WNtmwj5QKgcn9A6Nyxw"))
-      (include-js "https://maps.googleapis.com/maps/api/js?key=AIzaSyBNwPtBu2O-Ze3-WNtmwj5QKgcn9A6Nyxw")]
+      (include-js "//api.tiles.mapbox.com/mapbox-gl-js/v0.12.2/mapbox-gl.js")
+      (include-css "//api.tiles.mapbox.com/mapbox-gl-js/v0.12.2/mapbox-gl.css")]
 
      [:body
       [:div#app [:div.signal]]
