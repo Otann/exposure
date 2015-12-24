@@ -15,6 +15,8 @@
         [:div.right.menu
          [:a.ui.item {:href (url-for :about-page)}
           "About"]
+         [:a.ui.item {:href (url-for :privacy-page)}
+          "Privacy"]
 
          (if @profile
            [:a.ui.item {:href (url-for :profile-page)}

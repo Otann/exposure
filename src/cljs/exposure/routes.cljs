@@ -9,7 +9,8 @@
 
 (def routes ["/" {""        :home-page
                   "about"   :about-page
-                  "profile" :profile-page}])
+                  "profile" :profile-page
+                  "privacy" :privacy-page}])
 
 (defn- parse-url [url]
   (bidi/match-route routes url))

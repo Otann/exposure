@@ -3,7 +3,8 @@
             [reagent.ratom :refer-macros [reaction]]
 
             [exposure.routes :refer [url-for]]
-            [exposure.views.components :as c]))
+            [exposure.views.components :as c]
+            [exposure.views.privacy-policy :refer [privacy]]))
 
 (defn welcome []
   [:div.ui.vertical.masthead.center.aligned.segment
@@ -69,9 +70,10 @@
     (fn []
       [:div.ui.container
        (case @active-page
-         :home-page [home]
+         :home-page    [home]
          :profile-page [profile]
-         :about-page [about]
+         :about-page   [about]
+         :privacy-page [privacy]
 
          ;; default is like 404
          [:div [:h1 "404?!"]])])))
