@@ -3,9 +3,7 @@
             [reagent.ratom :refer-macros [reaction]]
 
             [exposure.routes :refer [url-for]]
-            [exposure.views.components :as c]
-            [exposure.views.google-maps :as google-maps]
-            [exposure.views.mapbox :as mapbox]))
+            [exposure.views.components :as c]))
 
 (defn welcome []
   [:div.ui.vertical.masthead.center.aligned.segment

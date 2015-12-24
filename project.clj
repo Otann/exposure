@@ -51,7 +51,6 @@
                    {"resources/public/css/site.min.css" "resources/public/css/site.css"}}
 
   :cljsbuild {:builds {:app {:source-paths ["src/cljs" "src/cljc"]
-                             :externs ["src/js/externs.js"]
                              :compiler {:output-to "target/cljsbuild/public/js/app.js"
                                         :output-dir "target/cljsbuild/public/js/out"
                                         :asset-path   "js/out"
@@ -103,6 +102,7 @@
                        :cljsbuild {:jar true
                                    :builds {:app
                                             {:compiler {:main "exposure.core"
-                                                        :optimizations :advanced
+                                                        ;:optimizations :advanced
+                                                        ;:externs ["src/js/externs.js"]
                                                         :closure-defines {goog.DEBUG false}
                                                         :pretty-print false}}}}}})
